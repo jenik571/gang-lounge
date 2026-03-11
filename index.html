@@ -104,33 +104,73 @@
 
   
 
+
 <section id="rezervace" class="section">
   <div class="wrap">
     <h2>Rezervace</h2>
     <div class="underline"></div>
     <p class="lead">
-      Vyberte stylistku a druh služby. Otevře se Google rezervační stránka s volnými termíny.
+      Vyberte stylistku a službu. Po kliknutí na tlačítko se otevře správná Google rezervační stránka s volnými termíny.
     </p>
 
-    <div class="booking-groups">
-      <div class="booking-column">
-        <h3 class="booking-heading">Leni</h3>
-        <div class="booking-buttons">
-          <a class="booking-btn" href="https://calendar.app.google/9SWtFZNDdFTE7Rdn8" target="_blank" rel="noopener">Leni – řasy</a>
-          <a class="booking-btn" href="https://calendar.app.google/vy5bRLxobeLvYLEd7" target="_blank" rel="noopener">Leni – obočí</a>
+    <div class="booking-form-card">
+      <div class="booking-form-grid">
+        <div class="booking-field">
+          <label for="stylist-select">Vyberte stylistku</label>
+          <select id="stylist-select">
+            <option value="Leni">Leni</option>
+            <option value="Gabi">Gabi</option>
+          </select>
+        </div>
+
+        <div class="booking-field">
+          <label for="service-select">Vyberte službu</label>
+          <select id="service-select">
+            <optgroup label="ŘASY">
+              <option value="Lash Lift">Lash Lift</option>
+              <option value="Classic lashes">Classic lashes</option>
+              <option value="Volume lashes">Volume lashes</option>
+            </optgroup>
+            <optgroup label="OBOČÍ">
+              <option value="Laminace obočí">Laminace obočí</option>
+              <option value="Úprava obočí">Úprava obočí</option>
+              <option value="Barvení obočí">Barvení obočí</option>
+            </optgroup>
+          </select>
         </div>
       </div>
 
+      <div class="booking-action">
+        <button id="booking-open-btn" class="booking-main-btn" type="button">Objednat se</button>
+      </div>
+
+      <p class="muted center booking-note">
+        Služby řas vedou do řasového kalendáře a služby obočí do kalendáře obočí u zvolené stylistky.
+      </p>
+    </div>
+
+    <div class="booking-overview">
       <div class="booking-column">
-        <h3 class="booking-heading">Gabi</h3>
-        <div class="booking-buttons">
-          <a class="booking-btn" href="https://calendar.app.google/R8gTfXzrRyZPRsab9" target="_blank" rel="noopener">Gabi – řasy</a>
-          <a class="booking-btn" href="https://calendar.app.google/9Hot8w1DUyDRQvRf9" target="_blank" rel="noopener">Gabi – obočí</a>
-        </div>
+        <h3 class="booking-heading">ŘASY</h3>
+        <ul class="service-list">
+          <li>Lash Lift</li>
+          <li>Classic lashes</li>
+          <li>Volume lashes</li>
+        </ul>
+      </div>
+
+      <div class="booking-column">
+        <h3 class="booking-heading">OBOČÍ</h3>
+        <ul class="service-list">
+          <li>Laminace obočí</li>
+          <li>Úprava obočí</li>
+          <li>Barvení obočí</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
+
 
 
 
