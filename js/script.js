@@ -1,3 +1,4 @@
+// Gang Lounge v06 – mobilní úpravy + opravené odkazy kalendářů
 // Jemný 3D nádech: silnější pohyb dlaždic služeb + lehký pohyb hero boxu
 const hero = document.querySelector('.hero-content');
 const cards = document.querySelectorAll('.service-card, .team-card, .booking-card, .contact-card');
