@@ -453,3 +453,65 @@ h2{
     text-align: center;
   }
 }
+
+/* ===== Rezervace v07 – 4 služby ===== */
+.booking-groups{
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.booking-column{
+  background: rgba(243,237,230,.55);
+  border: 1px solid rgba(30,27,24,.08);
+  border-radius: 22px;
+  padding: 22px 18px 18px;
+  box-shadow: 0 18px 46px rgba(17, 12, 7, .08);
+}
+.booking-heading{
+  margin: 0 0 8px;
+  text-align: center;
+  font-size: 24px;
+}
+.booking-buttons{
+  text-align:center;
+  margin-top:18px;
+}
+.booking-btn{
+  display:block;
+  margin:12px auto;
+  padding:18px 24px;
+  font-size:18px;
+  font-weight:600;
+  background:#c9a158;
+  color:white;
+  text-decoration:none;
+  border-radius:14px;
+  transition:transform .25s ease, box-shadow .25s ease;
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  max-width: 320px;
+}
+.booking-btn:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 18px 40px rgba(0,0,0,0.18);
+}
+
+@media (max-width: 900px){
+  .booking-groups{
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 680px){
+  .booking-column{
+    padding: 18px 14px 14px;
+  }
+  .booking-heading{
+    font-size: 22px;
+  }
+  .booking-btn{
+    max-width: none;
+    width: 100%;
+    font-size: 17px;
+    padding: 16px 18px;
+  }
+}

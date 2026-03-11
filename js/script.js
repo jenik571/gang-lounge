@@ -1,3 +1,4 @@
+// Gang Lounge v07 – 4 rezervační tlačítka podle služby
 // Gang Lounge v06 – mobilní úpravy + opravené odkazy kalendářů
 // Jemný 3D nádech: silnější pohyb dlaždic služeb + lehký pohyb hero boxu
 const hero = document.querySelector('.hero-content');
