@@ -105,12 +105,13 @@
   
 
 
+
 <section id="rezervace" class="section">
   <div class="wrap">
     <h2>Rezervace</h2>
     <div class="underline"></div>
     <p class="lead">
-      Vyberte stylistku a druh služby. Potom klikněte na tlačítko a otevře se správná Google rezervační stránka s volnými termíny.
+      Vyberte stylistku, kategorii a konkrétní službu. Potom klikněte na tlačítko a otevře se správná Google rezervační stránka s volnými termíny.
     </p>
 
     <div class="booking-selector"
@@ -128,10 +129,34 @@
       </div>
 
       <div class="selector-group">
-        <div class="selector-label">Vyberte službu</div>
+        <div class="selector-label">Vyberte kategorii</div>
         <div class="pill-row">
-          <button class="pill-btn active" type="button" data-group="service" data-value="rasy">Řasy</button>
-          <button class="pill-btn" type="button" data-group="service" data-value="oboci">Obočí</button>
+          <button class="pill-btn active" type="button" data-group="category" data-value="rasy">Řasy</button>
+          <button class="pill-btn" type="button" data-group="category" data-value="oboci">Obočí</button>
+        </div>
+      </div>
+
+      <div class="selector-group">
+        <div class="selector-label">Vyberte konkrétní službu</div>
+
+        <div class="service-subgroup active" data-subgroup="rasy">
+          <div class="service-grid">
+            <button class="service-btn active" type="button" data-service="lash-lifting">Lash lifting</button>
+            <button class="service-btn" type="button" data-service="classic">Řasa na řasu</button>
+            <button class="service-btn" type="button" data-service="3d4d">Objemové řasy 3D–4D</button>
+            <button class="service-btn" type="button" data-service="mega">Mega Volume 5D–8D</button>
+          </div>
+        </div>
+
+        <div class="service-subgroup" data-subgroup="oboci">
+          <div class="service-grid">
+            <button class="service-btn active" type="button" data-service="laminace">Laminace obočí</button>
+            <button class="service-btn" type="button" data-service="uprava">Úprava a barvení obočí</button>
+          </div>
+        </div>
+
+        <div class="service-note">
+          Výběr konkrétní služby je součást finálního vzhledu. Rezervační odkaz se zatím otevírá podle kategorie Řasy / Obočí.
         </div>
       </div>
 
@@ -143,6 +168,7 @@
     </div>
   </div>
 </section>
+
 
 
 

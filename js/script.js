@@ -95,3 +95,87 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 
   refresh();
 })();
+
+
+// Gang Lounge v09 – finální vzhled rezervace s podkategoriemi
+(function () {
+  const selector = document.querySelector('.booking-selector');
+  if (!selector) return;
+
+  let currentStylist = 'leni';
+  let currentCategory = 'rasy';
+  let currentService = 'lash-lifting';
+
+  const mainBtn = document.getElementById('booking-main-btn');
+  const pillButtons = selector.querySelectorAll('.pill-btn');
+  const serviceButtons = selector.querySelectorAll('.service-btn');
+  const subgroups = selector.querySelectorAll('.service-subgroup');
+
+  function getUrl() {
+    if (currentStylist === 'leni' && currentCategory === 'rasy') return selector.dataset.leniRasy;
+    if (currentStylist === 'leni' && currentCategory === 'oboci') return selector.dataset.leniOboci;
+    if (currentStylist === 'gabi' && currentCategory === 'rasy') return selector.dataset.gabiRasy;
+    if (currentStylist === 'gabi' && currentCategory === 'oboci') return selector.dataset.gabiOboci;
+    return selector.dataset.leniRasy;
+  }
+
+  function defaultServiceForCategory(category){
+    return category === 'rasy' ? 'lash-lifting' : 'laminace';
+  }
+
+  function refreshSubgroups() {
+    subgroups.forEach(group => {
+      group.classList.toggle('active', group.dataset.subgroup === currentCategory);
+    });
+
+    serviceButtons.forEach(btn => {
+      const parent = btn.closest('.service-subgroup');
+      const visible = parent && parent.dataset.subgroup === currentCategory;
+      btn.classList.toggle('active', visible && btn.dataset.service === currentService);
+    });
+  }
+
+  function refreshPills() {
+    pillButtons.forEach(btn => {
+      const group = btn.dataset.group;
+      const value = btn.dataset.value;
+      const isActive = (group === 'stylist' && value === currentStylist) ||
+                       (group === 'category' && value === currentCategory);
+      btn.classList.toggle('active', isActive);
+    });
+  }
+
+  function refreshMainButton() {
+    if (mainBtn) mainBtn.href = getUrl();
+  }
+
+  function refreshAll() {
+    refreshPills();
+    refreshSubgroups();
+    refreshMainButton();
+  }
+
+  pillButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group;
+      const value = btn.dataset.value;
+      if (group === 'stylist') currentStylist = value;
+      if (group === 'category') {
+        currentCategory = value;
+        currentService = defaultServiceForCategory(value);
+      }
+      refreshAll();
+    });
+  });
+
+  serviceButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.service-subgroup');
+      if (!parent || parent.dataset.subgroup !== currentCategory) return;
+      currentService = btn.dataset.service;
+      refreshSubgroups();
+    });
+  });
+
+  refreshAll();
+})();
