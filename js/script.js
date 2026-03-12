@@ -51,3 +51,47 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     }
   });
 });
+
+
+// Gang Lounge v08 – výběr stylistky a služby přes přepínací tlačítka
+(function () {
+  const selector = document.querySelector('.booking-selector');
+  if (!selector) return;
+
+  let currentStylist = 'leni';
+  let currentService = 'rasy';
+
+  const mainBtn = document.getElementById('booking-main-btn');
+  const buttons = selector.querySelectorAll('.pill-btn');
+
+  function getUrl() {
+    if (currentStylist === 'leni' && currentService === 'rasy') return selector.dataset.leniRasy;
+    if (currentStylist === 'leni' && currentService === 'oboci') return selector.dataset.leniOboci;
+    if (currentStylist === 'gabi' && currentService === 'rasy') return selector.dataset.gabiRasy;
+    if (currentStylist === 'gabi' && currentService === 'oboci') return selector.dataset.gabiOboci;
+    return selector.dataset.leniRasy;
+  }
+
+  function refresh() {
+    buttons.forEach(btn => {
+      const group = btn.dataset.group;
+      const value = btn.dataset.value;
+      const isActive = (group === 'stylist' && value === currentStylist) ||
+                       (group === 'service' && value === currentService);
+      btn.classList.toggle('active', isActive);
+    });
+    if (mainBtn) mainBtn.href = getUrl();
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group;
+      const value = btn.dataset.value;
+      if (group === 'stylist') currentStylist = value;
+      if (group === 'service') currentService = value;
+      refresh();
+    });
+  });
+
+  refresh();
+})();

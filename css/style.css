@@ -515,3 +515,99 @@ h2{
     padding: 16px 18px;
   }
 }
+
+
+/* ===== Rezervace v08 – přepínací tlačítka ===== */
+.booking-selector{
+  max-width: 760px;
+  margin: 30px auto 0;
+  background: rgba(243,237,230,.52);
+  border: 1px solid rgba(30,27,24,.08);
+  border-radius: 26px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 20px 55px rgba(17, 12, 7, .08);
+}
+.selector-group + .selector-group{
+  margin-top: 24px;
+}
+.selector-label{
+  text-align: center;
+  font-size: 19px;
+  margin-bottom: 14px;
+  color: rgba(30,27,24,.82);
+}
+.pill-row{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.pill-btn{
+  appearance: none;
+  border: 1px solid rgba(30,27,24,.12);
+  background: rgba(255,255,255,.88);
+  color: rgba(30,27,24,.82);
+  border-radius: 999px;
+  padding: 18px 18px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(17, 12, 7, .08);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
+}
+.pill-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(17, 12, 7, .10);
+}
+.pill-btn.active{
+  background: linear-gradient(180deg, #e5bd74, #c99f55);
+  color: #fff;
+  border-color: rgba(201,159,85,.85);
+  box-shadow: 0 16px 34px rgba(201,159,85,.28);
+}
+.booking-action{
+  text-align: center;
+  margin-top: 28px;
+}
+.booking-main-btn{
+  display: inline-block;
+  min-width: 300px;
+  text-decoration: none;
+  padding: 19px 28px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #e3b96f, #c7984e);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  box-shadow: 0 16px 38px rgba(201,159,85,.30);
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+.booking-main-btn:hover{
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 22px 48px rgba(201,159,85,.36);
+  filter: saturate(1.03);
+}
+
+@media (max-width: 680px){
+  .booking-selector{
+    padding: 20px 14px 18px;
+    border-radius: 22px;
+  }
+  .selector-label{
+    font-size: 18px;
+  }
+  .pill-row{
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .pill-btn{
+    font-size: 18px;
+    padding: 16px 12px;
+  }
+  .booking-main-btn{
+    display: block;
+    width: 100%;
+    min-width: 0;
+    font-size: 20px;
+    padding: 17px 18px;
+  }
+}
