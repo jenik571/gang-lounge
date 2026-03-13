@@ -129,3 +129,21 @@
 
   refreshAll();
 })();
+
+
+// v13 about avatars motion
+document.querySelectorAll('.artist-card').forEach(card => {
+  const img = card.querySelector('.artist-visual img');
+  if (!img) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+    img.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(x/6).toFixed(1)}deg) scale(1.03)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    img.style.transform = 'translate(0px, 0px) rotate(0deg) scale(1)';
+  });
+});
