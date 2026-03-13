@@ -1,179 +1,130 @@
-// Gang Lounge v07 – 4 rezervační tlačítka podle služby
-// Gang Lounge v06 – mobilní úpravy + opravené odkazy kalendářů
-// Jemný 3D nádech: silnější pohyb dlaždic služeb + lehký pohyb hero boxu
-const hero = document.querySelector('.hero-content');
-const cards = document.querySelectorAll('.service-card, .team-card, .booking-card, .contact-card');
 
-if (hero) {
-  window.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 8;
-    const y = (e.clientY / window.innerHeight - 0.5) * 8;
-    hero.style.transform = `translateZ(0) rotateX(${(-y).toFixed(2)}deg) rotateY(${(x).toFixed(2)}deg)`;
-  }, { passive: true });
-
-  window.addEventListener('mouseleave', () => {
-    hero.style.transform = 'translateZ(0)';
-  });
-}
-
-cards.forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const px = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
-    const py = ((e.clientY - rect.top) / rect.height - 0.5) * 18;
-    card.style.transform = `perspective(900px) rotateY(${px.toFixed(2)}deg) rotateX(${(-py).toFixed(2)}deg) translateY(-10px) scale(1.025)`;
-    card.style.boxShadow = '0 30px 75px rgba(17, 12, 7, .18)';
-  });
-
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    card.style.boxShadow = '';
-  });
-});
-
-// Plynulé scrollování s ohledem na sticky menu
-function scrollToId(id){
-  const el = document.querySelector(id);
-  const header = document.querySelector('.topbar');
-  if(!el) return;
-  const offset = header ? header.offsetHeight + 10 : 10;
-  const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
-  window.scrollTo({ top, behavior: 'smooth' });
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', (e)=>{
-    const href = a.getAttribute('href');
-    if(href && href.length > 1){
-      e.preventDefault();
-      scrollToId(href);
-      history.replaceState(null, "", href);
-    }
-  });
-});
-
-
-// Gang Lounge v08 – výběr stylistky a služby přes přepínací tlačítka
 (function () {
-  const selector = document.querySelector('.booking-selector');
-  if (!selector) return;
+  const booking = document.querySelector(".booking-selector");
+  if (!booking) return;
 
-  let currentStylist = 'leni';
-  let currentService = 'rasy';
+  let stylist = "leni";
+  let category = "rasy";
+  let service = "lash-lifting";
 
-  const mainBtn = document.getElementById('booking-main-btn');
-  const buttons = selector.querySelectorAll('.pill-btn');
+  const reserveBtn = document.getElementById("reserve-link");
+  const stylistButtons = booking.querySelectorAll(".stylist-tile");
+  const categoryButtons = booking.querySelectorAll(".pill-button");
+  const serviceButtons = booking.querySelectorAll(".service-choice");
+  const serviceGroups = booking.querySelectorAll(".service-group");
+  const hoverCards = document.querySelectorAll(".service-card");
 
-  function getUrl() {
-    if (currentStylist === 'leni' && currentService === 'rasy') return selector.dataset.leniRasy;
-    if (currentStylist === 'leni' && currentService === 'oboci') return selector.dataset.leniOboci;
-    if (currentStylist === 'gabi' && currentService === 'rasy') return selector.dataset.gabiRasy;
-    if (currentStylist === 'gabi' && currentService === 'oboci') return selector.dataset.gabiOboci;
-    return selector.dataset.leniRasy;
+  function defaultService(nextCategory) {
+    return nextCategory === "rasy" ? "lash-lifting" : "laminace";
   }
 
-  function refresh() {
-    buttons.forEach(btn => {
-      const group = btn.dataset.group;
-      const value = btn.dataset.value;
-      const isActive = (group === 'stylist' && value === currentStylist) ||
-                       (group === 'service' && value === currentService);
-      btn.classList.toggle('active', isActive);
+  function getLink() {
+    const map = {
+      "leni-lash-lifting": booking.dataset.leniLashLifting,
+      "leni-classic": booking.dataset.leniClassic,
+      "leni-volume": booking.dataset.leniVolume,
+      "leni-mega": booking.dataset.leniMega,
+      "leni-laminace": booking.dataset.leniLaminace,
+      "leni-uprava": booking.dataset.leniUprava,
+      "gabi-lash-lifting": booking.dataset.gabiLashLifting,
+      "gabi-classic": booking.dataset.gabiClassic,
+      "gabi-volume": booking.dataset.gabiVolume,
+      "gabi-mega": booking.dataset.gabiMega,
+      "gabi-laminace": booking.dataset.gabiLaminace,
+      "gabi-uprava": booking.dataset.gabiUprava
+    };
+    return map[`${stylist}-${service}`];
+  }
+
+  function refreshStylist() {
+    stylistButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.stylist === stylist);
     });
-    if (mainBtn) mainBtn.href = getUrl();
   }
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const group = btn.dataset.group;
-      const value = btn.dataset.value;
-      if (group === 'stylist') currentStylist = value;
-      if (group === 'service') currentService = value;
-      refresh();
+  function refreshCategory() {
+    categoryButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.category === category);
     });
-  });
-
-  refresh();
-})();
-
-
-// Gang Lounge v09 – finální vzhled rezervace s podkategoriemi
-(function () {
-  const selector = document.querySelector('.booking-selector');
-  if (!selector) return;
-
-  let currentStylist = 'leni';
-  let currentCategory = 'rasy';
-  let currentService = 'lash-lifting';
-
-  const mainBtn = document.getElementById('booking-main-btn');
-  const pillButtons = selector.querySelectorAll('.pill-btn');
-  const serviceButtons = selector.querySelectorAll('.service-btn');
-  const subgroups = selector.querySelectorAll('.service-subgroup');
-
-  function getUrl() {
-    if (currentStylist === 'leni' && currentCategory === 'rasy') return selector.dataset.leniRasy;
-    if (currentStylist === 'leni' && currentCategory === 'oboci') return selector.dataset.leniOboci;
-    if (currentStylist === 'gabi' && currentCategory === 'rasy') return selector.dataset.gabiRasy;
-    if (currentStylist === 'gabi' && currentCategory === 'oboci') return selector.dataset.gabiOboci;
-    return selector.dataset.leniRasy;
   }
 
-  function defaultServiceForCategory(category){
-    return category === 'rasy' ? 'lash-lifting' : 'laminace';
-  }
-
-  function refreshSubgroups() {
-    subgroups.forEach(group => {
-      group.classList.toggle('active', group.dataset.subgroup === currentCategory);
+  function refreshServiceGroups() {
+    serviceGroups.forEach(group => {
+      group.classList.toggle("active", group.dataset.group === category);
     });
+  }
 
+  function refreshServices() {
     serviceButtons.forEach(btn => {
-      const parent = btn.closest('.service-subgroup');
-      const visible = parent && parent.dataset.subgroup === currentCategory;
-      btn.classList.toggle('active', visible && btn.dataset.service === currentService);
+      const group = btn.closest(".service-group");
+      const visible = group && group.dataset.group === category;
+      btn.classList.toggle("active", visible && btn.dataset.service === service);
     });
   }
 
-  function refreshPills() {
-    pillButtons.forEach(btn => {
-      const group = btn.dataset.group;
-      const value = btn.dataset.value;
-      const isActive = (group === 'stylist' && value === currentStylist) ||
-                       (group === 'category' && value === currentCategory);
-      btn.classList.toggle('active', isActive);
-    });
-  }
-
-  function refreshMainButton() {
-    if (mainBtn) mainBtn.href = getUrl();
+  function refreshLink() {
+    reserveBtn.href = getLink();
   }
 
   function refreshAll() {
-    refreshPills();
-    refreshSubgroups();
-    refreshMainButton();
+    refreshStylist();
+    refreshCategory();
+    refreshServiceGroups();
+    refreshServices();
+    refreshLink();
   }
 
-  pillButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const group = btn.dataset.group;
-      const value = btn.dataset.value;
-      if (group === 'stylist') currentStylist = value;
-      if (group === 'category') {
-        currentCategory = value;
-        currentService = defaultServiceForCategory(value);
-      }
+  stylistButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      stylist = btn.dataset.stylist;
+      refreshAll();
+    });
+  });
+
+  categoryButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      category = btn.dataset.category;
+      service = defaultService(category);
       refreshAll();
     });
   });
 
   serviceButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parent = btn.closest('.service-subgroup');
-      if (!parent || parent.dataset.subgroup !== currentCategory) return;
-      currentService = btn.dataset.service;
-      refreshSubgroups();
+    btn.addEventListener("click", () => {
+      const group = btn.closest(".service-group");
+      if (!group || group.dataset.group !== category) return;
+      service = btn.dataset.service;
+      refreshServices();
+      refreshLink();
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener("click", (e) => {
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const header = document.querySelector(".topbar");
+      const offset = header ? header.offsetHeight + 10 : 10;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  });
+
+  hoverCards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+      const py = ((e.clientY - rect.top) / rect.height - 0.5) * 18;
+      card.style.transform = `perspective(900px) rotateY(${px.toFixed(2)}deg) rotateX(${(-py).toFixed(2)}deg) translateY(-10px) scale(1.025)`;
+      card.style.boxShadow = "0 30px 75px rgba(17, 12, 7, .18)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+      card.style.boxShadow = "";
     });
   });
 
