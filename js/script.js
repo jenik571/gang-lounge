@@ -1,6 +1,6 @@
 
 (function () {
-  const booking = document.querySelector(".booking-selector");
+  const booking = document.querySelector(".booking-box");
   if (!booking) return;
 
   let stylist = "leni";
@@ -121,7 +121,6 @@
       card.style.transform = `perspective(900px) rotateY(${px.toFixed(2)}deg) rotateX(${(-py).toFixed(2)}deg) translateY(-10px) scale(1.025)`;
       card.style.boxShadow = "0 30px 75px rgba(17, 12, 7, .18)";
     });
-
     card.addEventListener("mouseleave", () => {
       card.style.transform = "";
       card.style.boxShadow = "";
