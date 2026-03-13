@@ -371,3 +371,14 @@ h2{margin:0;text-align:center;font-size:clamp(30px,3.2vw,44px)}
     max-width: 88px !important;
   }
 }
+
+
+/* v14 motion polish */
+.service-card,
+.stylist-tile,
+.pill-button,
+.service-choice,
+.artist-card{
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
+  will-change: transform;
+}
