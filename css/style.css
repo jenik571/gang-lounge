@@ -452,3 +452,53 @@ p, a, button, .lead, .nav, .price, .artist-role, .artist-sub,
     width:92px !important;
   }
 }
+
+
+/* ===== v16 – černé prvky mimo rezervaci + logo 130 px ===== */
+.logo{
+  width:130px !important;
+  height:auto !important;
+}
+
+.underline{
+  background:#000000 !important;
+}
+
+.price,
+.artist-role,
+.artist-sub,
+.eyebrow{
+  color:#000000 !important;
+}
+
+.nav a,
+.footer a,
+.footer span{
+  color:#000000 !important;
+}
+
+/* zlatá zůstává pouze v rezervačním systému */
+.booking-box .stylist-tile.active,
+.booking-box .pill-button.active,
+.booking-box .service-choice.active{
+  background:linear-gradient(180deg,#ead3ab,#e3bb74) !important;
+  border-color:rgba(201,159,85,.75) !important;
+  box-shadow:0 18px 38px rgba(201,159,85,.20) !important;
+}
+
+.booking-box .reserve-btn{
+  background:linear-gradient(180deg,#e3b96f,#c7984e) !important;
+  color:#ffffff !important;
+}
+
+.booking-box .stylist-tile.active span,
+.booking-box .pill-button.active,
+.booking-box .service-choice.active{
+  color:#ffffff !important;
+}
+
+@media (max-width:680px){
+  .logo{
+    width:110px !important;
+  }
+}
