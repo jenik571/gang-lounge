@@ -147,3 +147,25 @@ document.querySelectorAll('.artist-card').forEach(card => {
     img.style.transform = 'translate(0px, 0px) rotate(0deg) scale(1)';
   });
 });
+
+
+// v14 tile motion
+(function () {
+  const motionSelectors = ['.service-card', '.stylist-tile', '.pill-button', '.service-choice', '.artist-card'];
+  const motionItems = document.querySelectorAll(motionSelectors.join(', '));
+
+  motionItems.forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+      const rect = item.getBoundingClientRect();
+      const px = ((e.clientX - rect.left) / rect.width - 0.5) * 14;
+      const py = ((e.clientY - rect.top) / rect.height - 0.5) * 14;
+      item.style.transform = `perspective(900px) rotateY(${px.toFixed(2)}deg) rotateX(${(-py).toFixed(2)}deg) translateY(-6px) scale(1.02)`;
+      item.style.boxShadow = '0 24px 52px rgba(17, 12, 7, .16)';
+    });
+
+    item.addEventListener('mouseleave', () => {
+      item.style.transform = '';
+      item.style.boxShadow = '';
+    });
+  });
+})();
